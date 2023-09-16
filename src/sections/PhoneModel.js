@@ -18,11 +18,11 @@ const Container = styled.div`
 
 const PhoneModel = () => {
   return (
-    <Container>
+    <Container id="phone-model">
       <Canvas camera={{ fov: 14 }}>
-        <ambientLight intensity={2.25} />
-        <directionalLight position={[-1, 0, 0]} />
-        <Suspense>
+        <ambientLight intensity={1.25} />
+        <directionalLight intensity={0.4} />
+        <Suspense fallback={null}>
           <Iphone14 />
         </Suspense>
         <Environment preset="sunset" />
