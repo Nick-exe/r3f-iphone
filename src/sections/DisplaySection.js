@@ -98,7 +98,7 @@ const DisplaySection = () => {
         },
       })
       .fromTo(textOne.current, { x: 0 }, { x: "20%" }, "together")
-      .fromTo(textTwo.current, { x: 0 }, { x: "-10%" }, "together");
+      .fromTo(textTwo.current, { x: 0 }, { x: "-20%" }, "together");
 
     return () => {
       if (tl) tl.kill();
