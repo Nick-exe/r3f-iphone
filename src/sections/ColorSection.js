@@ -1,6 +1,9 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef, Suspense } from "react";
 import styled from "styled-components";
 import gsap from "gsap";
+import { useGLTF, Environment } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { Iphone14Static } from "../models/IPhone14-static";
 
 const Section = styled.section`
   width: 100vw;
@@ -48,6 +51,8 @@ const ColorSection = () => {
   const rightRef = useRef(null);
   const textRef = useRef(null);
 
+  const { materials } = useGLTF("3D-Model/scene.gltf");
+
   useLayoutEffect(() => {
     let elem = sectionRef.current;
     let leftElem = leftRef.current;
@@ -55,6 +60,8 @@ const ColorSection = () => {
     let textElem = textRef.current;
 
     let updateColor = (color, text, rgb) => {
+      materials.Body.color.set(color);
+
       textElem.innerText = text;
       textElem.style.color = color;
       rightElem.style.backgroundColor = `rgba(${rgb}, 0.4)`;
@@ -70,7 +77,6 @@ const ColorSection = () => {
         pin: true,
         pinSpacing: true,
         scrub: true,
-        markers: true,
       },
     });
 
@@ -81,7 +87,6 @@ const ColorSection = () => {
           start: "top top",
           end: `+=${elem.offsetWidth} +1000`,
           scrub: true,
-          markers: true,
         },
       })
       .to(elem, {
@@ -129,8 +134,18 @@ const ColorSection = () => {
   return (
     <Section ref={sectionRef}>
       <Left ref={leftRef}></Left>
-      <Center ref={textRef}>Sierra Blue</Center>
-      <Right ref={rightRef}></Right>
+      <Center ref={textRef}></Center>
+      <Right ref={rightRef}>
+        <Canvas camera={{ fov: 14 }}>
+          <ambientLight intensity={1.25} />
+          <directionalLight intensity={0.4} />
+          <Suspense fallback={null}>
+            <Iphone14Static />
+          </Suspense>
+          <Environment preset="night" />
+          {/* <OrbitControls /> */}
+        </Canvas>
+      </Right>
     </Section>
   );
 };
