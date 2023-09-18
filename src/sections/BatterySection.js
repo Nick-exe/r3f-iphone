@@ -70,14 +70,14 @@ const BatterySection = () => {
   }, []);
 
   return (
-    <Section ref={batteryRef}>
+    <Section ref={batteryRef} id="battery">
       <Title>Go all day with a single charge...</Title>
       <Battery>
-        <li>24 hours of talk time</li>
-        <li>18 hours of video playback</li>
-        <li>12 hours of internet use</li>
-        <li>12 hours of wireless video playback</li>
-        <li>60 hours of wireless audio playback</li>
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
       </Battery>
     </Section>
   );
