@@ -5,6 +5,7 @@ import DisplaySection from "./sections/DisplaySection";
 import ProcessorSection from "./sections/ProcessorSection";
 import BatterySection from "./sections/BatterySection";
 import ColorSection from "./sections/ColorSection";
+import CameraSection from "./sections/CameraSection";
 import Quote from "./sections/Quote";
 import { GlobalStyle } from "./styles/GlobalStyle";
 
@@ -20,6 +21,7 @@ function App() {
       <ProcessorSection />
       <BatterySection />
       <ColorSection />
+      <CameraSection />
     </>
   );
 }
