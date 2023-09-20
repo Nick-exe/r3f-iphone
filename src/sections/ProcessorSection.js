@@ -31,6 +31,16 @@ const Title = styled.h1`
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  @media screen and (max-width: 70em) {
+    font-size: var(--fontxxxl);
+  }
+  @media screen and (max-width: 64em) {
+    font-size: var(--fontxxl);
+  }
+  @media screen and (max-width: 48em) {
+    font-size: var(--fontxl);
+  }
 `;
 
 const glow = keyframes`
@@ -62,6 +72,10 @@ const Processor = styled.div`
     width: 100%;
     height: auto;
   }
+
+  @media screen and (max-width: 48em) {
+    display: none;
+  }
 `;
 
 const Text = styled.div`
@@ -77,6 +91,26 @@ const Text = styled.div`
   span {
     margin-bottom: 0.2rem 0;
     padding-left: 2rem;
+  }
+
+  @media screen and (max-width: 64em) {
+    width: 50%;
+  }
+
+  @media screen and (max-width: 48em) {
+    width: 100%;
+    font-size: var(--fontxxs);
+    span {
+      width: 40%;
+      padding-left: 1rem;
+    }
+
+    & > *:last-child {
+      align-self: flex-end;
+      padding-left: 0;
+      padding-right: 1rem;
+      text-align: right;
+    }
   }
 `;
 
