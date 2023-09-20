@@ -14,69 +14,97 @@ export function Iphone14(props) {
     camera.position.set(0, 2, 6);
     materials.Body.color.set("#9BB5CE");
 
-    let tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#phone-model",
-        start: "top+=200 top",
-        endTrigger: "#battery",
-        end: "bottom+=500 bottom",
-        scrub: true,
-      },
-    });
+    let fov = camera.fov;
 
-    tl.fromTo(camera.position, { y: 2 }, { y: 0 })
-      .to(scene.rotation, {
-        y: 0.8,
-      })
-      .to(scene.rotation, {
-        y: 3,
-      })
-      .to(
-        scene.rotation,
-        {
-          z: 1.58,
-        },
-        "togetherA"
-      )
-      .to(
-        camera.position,
-        {
-          z: 5,
-        },
-        "togetherA"
-      )
-      .to(
-        scene.rotation,
-        {
-          y: 0,
-          z: 0,
-        },
-        "togetherB"
-      )
-      .to(
-        camera.position,
-        {
-          z: 6,
-          x: -1,
-        },
-        "togetherB"
-      )
-      .to(
-        scene.rotation,
-        {
-          z: 0,
-          y: 6.3,
-        },
-        "togetherC"
-      )
-      .to(
-        camera.position,
-        {
-          x: 0.8,
-          y: 0,
-        },
-        "togetherC"
-      );
+    fov = (1400 * 18) / window.innerWidth;
+    console.log(fov);
+    camera.fov = fov;
+    camera.updateProjectionMatrix();
+
+    let mm = gsap.matchMedia();
+
+    mm.add(
+      {
+        isDesktop: `(min-width: 48em)`,
+        isMobile: `(max-width: 48em)`,
+      },
+      (context) => {
+        let { isDesktop, isMobile } = context.conditions;
+
+        let tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: "#phone-model",
+            start: "top+=200 top",
+            endTrigger: "#battery",
+            end: "bottom+=500 bottom",
+            scrub: true,
+          },
+        });
+
+        tl.fromTo(camera.position, { y: 2 }, { y: 0 })
+          .to(scene.rotation, {
+            y: 0.8,
+          })
+          .to(scene.rotation, {
+            y: 3,
+          })
+          .to(
+            scene.rotation,
+            {
+              z: 1.58,
+            },
+            "togetherA"
+          )
+          .to(
+            camera.position,
+            {
+              z: 5,
+            },
+            "togetherA"
+          )
+          .to(
+            scene.rotation,
+            {
+              y: 0,
+              z: 0,
+            },
+            "togetherB"
+          )
+          .to(
+            camera.position,
+            {
+              z: 6,
+              x: isDesktop ? -1 : 0,
+            },
+            "togetherB"
+          )
+          .to(
+            scene.rotation,
+            {
+              z: 0,
+              y: 6.3,
+            },
+            "togetherC"
+          )
+          .to(
+            camera.position,
+            {
+              x: isDesktop ? 0.8 : 0,
+              y: 0,
+            },
+            "togetherC"
+          );
+
+        if (isMobile) {
+          camera.fov = 20;
+          camera.updateProjectionMatrix();
+        }
+
+        return () => {
+          if (tl) tl.kill();
+        };
+      }
+    );
   }, []);
 
   return (
