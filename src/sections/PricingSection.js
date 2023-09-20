@@ -1,9 +1,10 @@
-import React, { Suspense, useRef } from "react";
+import React, { Suspense, useContext, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Iphone14Static2 } from "../models/Iphone14-static2";
 import { useGLTF } from "@react-three/drei";
+import { ColorContext } from "../context/ColorContext";
 
 const Container = styled.div`
   width: 100vw;
@@ -122,12 +123,21 @@ const IndicatorText = styled.div`
 `;
 
 const PricingSection = () => {
-  const { materials } = useGLTF("3D-Model/scene.gltf");
   const sectionRef = useRef(null);
 
-  let updateColor = (color, rgbColor) => {
-    materials.Body.color.set(color);
-    sectionRef.current.style.backgroundColor = `rgba(${rgbColor}, 0.4)`;
+  const { currentColor, changeColorContext } = useContext(ColorContext);
+
+  useEffect(() => {
+    sectionRef.current.style.backgroundColor = `rgba(${currentColor.rgbColor}, 0.4)`;
+  }, [currentColor]);
+
+  let updateColor = (color, text, rgbColor) => {
+    const colorObj = {
+      color: color,
+      text: text,
+      rgbColor: rgbColor,
+    };
+    changeColorContext(colorObj);
   };
 
   return (
@@ -147,27 +157,33 @@ const PricingSection = () => {
           <Colors>
             <Color
               color="#9BB5CE"
-              onClick={() => updateColor("#9BB5CE", "155, 181, 206")}
+              onClick={() =>
+                updateColor("#9BB5CE", "Sierra Blue", "155, 181, 206")
+              }
             />
             <Color
               color="#F9E5C9"
-              onClick={() => updateColor("#F9E5C9", "249, 229, 201")}
+              onClick={() => updateColor("#F9E5C9", "Gold", "249, 229, 201")}
             />
             <Color
               color="#505F4E"
-              onClick={() => updateColor("#505F4E", "80, 95, 78")}
+              onClick={() =>
+                updateColor("#505F4E", "Alpine Green", "80, 95, 78")
+              }
             />
             <Color
               color="#574F6F"
-              onClick={() => updateColor("#574F6F", "87, 79, 111")}
+              onClick={() =>
+                updateColor("#574f6f", "Deep Purple", "87, 79, 111")
+              }
             />
             <Color
               color="#A50011"
-              onClick={() => updateColor("#A50011", "165, 0, 17")}
+              onClick={() => updateColor("#A50011", "Red", "165, 0, 17")}
             />
             <Color
               color="#215E7C"
-              onClick={() => updateColor("#215E7C", "33, 94, 124")}
+              onClick={() => updateColor("#215E7C", "Blue", "33, 94, 124")}
             />
           </Colors>
           <Details>

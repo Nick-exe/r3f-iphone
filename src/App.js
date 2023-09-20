@@ -9,6 +9,7 @@ import CameraSection from "./sections/CameraSection";
 import PricingSection from "./sections/PricingSection";
 import Quote from "./sections/Quote";
 import { GlobalStyle } from "./styles/GlobalStyle";
+import { ColorProvider } from "./context/ColorContext";
 
 function App() {
   return (
@@ -21,9 +22,11 @@ function App() {
       <DisplaySection />
       <ProcessorSection />
       <BatterySection />
-      <ColorSection />
-      <CameraSection />
-      <PricingSection />
+      <ColorProvider>
+        <ColorSection />
+        <CameraSection />
+        <PricingSection />
+      </ColorProvider>
     </>
   );
 }
