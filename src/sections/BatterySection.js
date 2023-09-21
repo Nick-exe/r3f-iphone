@@ -19,7 +19,7 @@ const Title = styled.h1`
   left: 50%;
   transform: translate(-55%, -50%);
 
-  text-transform: uppercase;
+  text-transform: capitalize;
   font-size: var(--fontBig);
   z-index: 1;
 

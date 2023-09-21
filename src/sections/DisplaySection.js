@@ -142,8 +142,8 @@ const DisplaySection = () => {
           scrub: true,
         },
       })
-      .fromTo(textOne.current, { x: 0 }, { x: "20%" }, "together")
-      .fromTo(textTwo.current, { x: 0 }, { x: "-20%" }, "together");
+      .fromTo(textOne.current, { x: 0 }, { x: "-20%" }, "together")
+      .fromTo(textTwo.current, { x: 0 }, { x: "20%" }, "together");
 
     return () => {
       if (tl) tl.kill();
